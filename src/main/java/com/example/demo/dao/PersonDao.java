@@ -6,9 +6,10 @@ import java.util.UUID;
 
 public interface PersonDao {
 
-    int InsertPerson (UUID id, Person person);
-    default int addPerson(PersonDao person) {
+    int insertPerson(UUID id, Person person);
+
+    default int addPerson(Person person) {
         UUID id = UUID.randomUUID();
-        return person.InsertPerson(id, person);
+        return insertPerson(id, person);
     }
 }
