@@ -21,6 +21,7 @@ public class PersonController {
     public PersonController(PersonService personService) {
         this.personService = personService;
     }
+
     @PostMapping
     public void AddPerson(@Valid @NotNull @RequestBody Person person) {
         personService.addPerson(person);
@@ -31,6 +32,11 @@ public class PersonController {
         return personService.getAllPeople();
     }
 
+    @GetMapping(path ="search")
+    public List<Person> searchPeople(@RequestParam("height") String height) {
+        return personService.searchPeople(height);
+    }
+
     @GetMapping(path = "{id}")
     public Person getPersonById(@PathVariable("id") UUID id) {
         return personService.getPersonById(id)
@@ -38,7 +44,7 @@ public class PersonController {
     }
 
     @DeleteMapping(path = "{id}")
-    public void deletePersonById(@PathVariable("id")UUID id){
+    public void deletePersonById(@PathVariable("id") UUID id) {
         personService.deletePerson(id);
     }
 
